@@ -1,2 +1,23 @@
 # Include your custom HAL commands here
 # This file will not be overwritten when you run PNCconf again
+
+loadrt classicladder_rt
+addf classicladder.0.refresh servo-thread
+
+loadusr classicladder traub.clp --nogui
+
+net buton classicladder.0.in-00 <= hm2_5i25.0.7i77.0.0.input-07
+
+net solenoid.cone-unlock classicladder.0.out-00 => hm2_5i25.0.7i77.0.0.output-02
+net solenoid.cone-cleanner classicladder.0.out-01 => hm2_5i25.0.7i77.0.0.output-03
+net solenoid.cone-lock classicladder.0.out-02 => hm2_5i25.0.7i77.0.0.output-04
+
+net pocket.retract classicladder.0.out-03 => hm2_5i25.0.7i77.0.0.output-05
+net pocket.expand classicladder.0.out-04 => hm2_5i25.0.7i77.0.0.output-06
+
+#net arm.rotate classicladder.0.out-09 => hm2_5i25.0.7i77.0.0.output-12
+#net disc.rotate classicladder.0.out-10 => hm2_5i25.0.7i77.0.0.output-13
+
+
+#net buton-fata <= hm2_5i25.0.7i77.0.0.input-07
+#net buton-fata => hm2_5i25.0.7i77.0.0.output-03
