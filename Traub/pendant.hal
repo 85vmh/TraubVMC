@@ -1,0 +1,57 @@
+# MPG Pendant handling
+
+loadrt encoder                  num_chan=1
+loadrt mux4                     count=1
+loadrt ilowpass                 count=1    
+#loadrt and2                     count=1 
+#loadrt not                      count=1    
+
+addf encoder.capture-position   servo-thread
+addf encoder.update-counters    servo-thread
+addf mux4.0                     servo-thread
+addf ilowpass.0                 servo-thread
+#addf and2.0                     servo-thread
+#addf not.0                      servo-thread
+
+setp ilowpass.0.scale 1000
+# This is reponsible with the acceleration-deceleration curves, value between 0 and 1
+setp ilowpass.0.gain  0.05
+
+setp encoder.0.x4-mode  1
+
+setp axis.x.jog-vel-mode 1
+setp axis.y.jog-vel-mode 1
+setp axis.z.jog-vel-mode 1
+
+# This sets the scale that will be used based on the input to the mux4
+# Will be divided by the value set for ilowpass.0.scale
+setp mux4.0.in0 0.0001
+setp mux4.0.in1 0.00001
+setp mux4.0.in2 0.000001
+
+# Step increment sent to mux4 component
+net scale1 mux4.0.sel0 <= hm2_5i25.0.7i73.0.2.input-17-not #x10
+net scale2 mux4.0.sel1 <= hm2_5i25.0.7i73.0.2.input-18-not #x100
+
+# The output from encoder counts is sent to ilowpass
+net mpg-out ilowpass.0.in <= hm2_5i25.0.7i73.0.2.enc0.count
+
+# The output from the mux4 is sent to each axis jog scale
+net mpg-scale   mux4.0.out     => axis.x.jog-scale   axis.y.jog-scale   axis.z.jog-scale
+net mpg-counts  ilowpass.0.out => axis.x.jog-counts  axis.y.jog-counts  axis.z.jog-counts
+
+# Selection of the axis to be jogged
+net jog-x hm2_5i25.0.7i73.0.2.input-19-not => axis.x.jog-enable 
+net jog-y hm2_5i25.0.7i73.0.2.input-20-not => axis.y.jog-enable 
+net jog-z hm2_5i25.0.7i73.0.2.input-21-not => axis.z.jog-enable 
+
+
+# Pendant active led
+net mpg-active halui.mode.is-manual  => hm2_5i25.0.7i73.0.2.output-00
+
+#signal for enable pressed
+#net pendant-enable  hm2_5i25.0.7i73.0.2.input-23-not  => and2.4.in0
+#net not-running     halui.mode.is-auto     => not.0.in
+#net machine-state   not.0.out   => and2.4.in1
+#net set-manual      and2.4.out  => halui.mode.manual
+

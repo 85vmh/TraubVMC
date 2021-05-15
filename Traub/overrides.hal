@@ -1,0 +1,17 @@
+# Handling for override buttons
+
+# Feed Override
+setp halui.feed-override.count-enable   True
+setp halui.feed-override.scale          0.01
+net fov-counts  hm2_5i25.0.7i73.0.2.enc1.count => halui.feed-override.counts
+
+# Max Velocity Override
+setp halui.max-velocity.count-enable    True
+setp halui.max-velocity.scale           0.1
+net mvo-counts  hm2_5i25.0.7i73.0.2.enc2.count => halui.max-velocity.counts
+
+# Spindle Override
+setp halui.spindle.0.override.count-enable    True
+setp halui.spindle.0.override.scale           0.01
+net spo-counts  hm2_5i25.0.7i73.0.2.enc3.count => halui.spindle.0.override.counts
+

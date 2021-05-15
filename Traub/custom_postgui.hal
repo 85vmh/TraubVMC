@@ -1,2 +1,12 @@
 # Include your custom_postgui HAL commands here
 # This file will not be overwritten when you run PNCconf again
+
+
+net pk_up classicladder.0.in-01 <= pyvcp.pocket-up
+net pk_down classicladder.0.in-02 <= pyvcp.pocket-down
+net left_rotate_arm classicladder.0.in-03 <= pyvcp.rotate-arm-left
+net right_rotate_arm classicladder.0.in-04 <= pyvcp.rotate-arm-right
+
+net rotate_tools_cw classicladder.0.in-05 <= pyvcp.rotate-tools-cw
+net rotate_tools_ccw classicladder.0.in-06 <= pyvcp.rotate-tools-ccw
+

@@ -1,0 +1,34 @@
+# Handling for override buttons
+
+# Feed Override
+setp halui.feed-override.count-enable   True
+setp halui.feed-override.scale          -0.01
+net fov-counts  hm2_5i25.0.7i73.0.2.enc3.count => halui.feed-override.counts
+net fov-reset   hm2_5i25.0.7i73.0.2.input-03-not =>  gmoccapy.feed.reset-feed-override 
+
+# Spindle Override
+setp halui.spindle.0.override.count-enable    True
+setp halui.spindle.0.override.scale           -0.01
+net spov-counts  hm2_5i25.0.7i73.0.2.enc2.count => halui.spindle.0.override.counts
+net spov-reset   hm2_5i25.0.7i73.0.2.input-04-not =>  gmoccapy.spindle.reset-spindle-override
+
+# Rapid Override
+setp halui.rapid-override.count-enable    True
+setp halui.rapid-override.scale           0.01
+net mvo-counts  hm2_5i25.0.7i73.0.2.enc1.count => halui.rapid-override.counts
+
+
+
+
+# The next lines are only needed if the pins had been connected before
+unlinkp iocontrol.0.tool-change
+unlinkp iocontrol.0.tool-changed
+unlinkp iocontrol.0.tool-prep-number
+unlinkp iocontrol.0.tool-prepared
+unlinkp iocontrol.0.tool-prepare
+
+# link to gmoccapy toolchange, so you get the advantage of tool description on change dialog
+net tool-change gmoccapy.toolchange-change <= iocontrol.0.tool-change
+net tool-changed gmoccapy.toolchange-changed <= iocontrol.0.tool-changed
+net tool-prep-number gmoccapy.toolchange-number <= iocontrol.0.tool-prep-number
+net tool-prep-loop iocontrol.0.tool-prepare <= iocontrol.0.tool-prepared

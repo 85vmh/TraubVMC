@@ -1,0 +1,26 @@
+<pyvcp>
+    <button>
+        <halpin>"pocket-up"</halpin>
+        <text>"Pocket Up"</text>
+    </button>
+    <button>
+        <halpin>"pocket-down"</halpin>
+        <text>"Pocket Down"</text>
+    </button>
+    <button>
+        <halpin>"rotate-arm-right"</halpin>
+        <text>"Rotate Arm Right"</text>
+    </button>
+    <button>
+        <halpin>"rotate-arm-left"</halpin>
+        <text>"Rotate Arm Left"</text>
+    </button>
+    <button>
+        <halpin>"rotate-tools-cw"</halpin>
+        <text>"Rotate Tools CW"</text>
+    </button>
+    <button>
+        <halpin>"rotate-tools-ccw"</halpin>
+        <text>"Rotate Tools CCW"</text>
+    </button>
+</pyvcp>
